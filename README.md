@@ -43,6 +43,6 @@ plt.plot(time_domain[t_start:t_end], time_envelope[t_start:t_end])
 ```
 ![The plotted time series of generated pulse with a line for the envelope plotted as well](example_time_zoomout.png)
 
-In blue is the time signal, and in orange is the envelope. If we again zoom in on this we can see the oscillations of the time singal inside the envelope.
+In blue is the time signal, and in orange is the envelope. If we again zoom in on this we can see the oscillations of the time signal inside the envelope.
 
 ![A more zoomed in version of the previous plot, now there are visible distinct oscillations in the pulse](example_time_zoomin.png)
