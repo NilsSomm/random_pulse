@@ -25,4 +25,6 @@ start = int(42 / freq_spacing)
 end = int(48 / freq_spacing)
 plt.plot(freq_domain[start:end], np.square(np.abs(freq_series))[start:end])
 ```
-![A pulse](example2.png)
+![A more zoomed in version of the previous plot, now there are visible distinct spikes in the pulse](example2.png)
+
+Now we can see the spikes in the pulse. 
