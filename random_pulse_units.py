@@ -1,4 +1,4 @@
-#random_pulse_units.py
+#fel_pulse.py
 
 #This class uses the random_laser_pulse class from random_pulse.py. The inputs are simplified 
 
