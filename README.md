@@ -9,22 +9,40 @@ If you want to look at the frequency series of such a pulse, you might write som
 import numpy as np
 from matplotlib import pyplot as plt
 from fel_pulse import fel_pulse
-pulse = fel_pulse('si', 'si', amplitude = 1, freq_spacing_factor = 0.02, pulse_duration = 25, bandwidth = 1, central_freq = 45)
+pulse = fel_pulse('si', 'si', amplitude = 1, freq_spacing_factor = 0.02, pulse_duration = 25, bandwidth = 0.55, central_freq = 45)
 freq_domain = pulse.get_pos_freq_domain()
 freq_series = pulse.get_pos_freq_series()
 plt.plot(freq_domain, np.square(np.abs(freq_series)))
 ```
 Which would generate a plot similar to this:
 
-![The plotted frequency series of generated pulse, but so zoomed out no features are visible](example1.png)
+![The plotted frequency series of generated pulse, but so zoomed out no features are visible](example_freq_zoomout.png)
 
 But here we can't see anything so let's zoom in some.
 ```
 freq_spacing = pulse.get_freq_spacing()
-start = int(42 / freq_spacing)
-end = int(48 / freq_spacing)
-plt.plot(freq_domain[start:end], np.square(np.abs(freq_series))[start:end])
+f_start = int(44 / freq_spacing)
+f_end = int(46 / freq_spacing)
+plt.plot(freq_domain[f_start:f_end], np.square(np.abs(freq_series))[f_start:f_end])
 ```
-![A more zoomed in version of the previous plot, now there are visible distinct spikes in the pulse](example2.png)
+![A more zoomed in version of the previous plot, now there are visible distinct spikes in the pulse](example_freq_zoomin.png)
 
-Now we can see the spikes in the pulse. 
+Now we can see the spikes in the pulse.
+
+If we want to see the time profile of a pulse along with its envelope, it can be done as such:
+```
+time_series = pulse.get_time_series()
+time_domain = pulse.get_time_domain()
+time_envelope = pulse.get_time_envelope()
+time_spacing = pulse.get_time_spacing()
+domain_len = len(time_domain)
+t_start = int((domain_len/2) - (50 / time_spacing))
+t_end = int((domain_len/2) + (50 / time_spacing))
+plt.plot(time_domain[t_start:t_end], time_series[t_start:t_end])
+plt.plot(time_domain[t_start:t_end], time_envelope[t_start:t_end])
+```
+![The plotted time series of generated pulse with a line for the envelope plotted as well](example_time_zoomout.png)
+
+In blue is the time signal, and in orange is the envelope. If we again zoom in on this we can see the oscillations of the time singal inside the envelope.
+
+![A more zoomed in version of the previous plot, now there are visible distinct oscillations in the pulse](example_time_zoomin.png)
