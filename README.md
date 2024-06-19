@@ -18,7 +18,7 @@ Which would generate a plot similar to this:
 
 ![The plotted frequency series of generated pulse, but so zoomed out no features are visible](example_freq_zoomout.png)
 
-But here we can't see anything so let's zoom in some.
+But here we can't see anything, so let's zoom in some.
 ```
 freq_spacing = pulse.get_freq_spacing()
 f_start = int(44 / freq_spacing)
