@@ -19,7 +19,7 @@ The frequency series of a pulse is the Fourier transform of its time series, mea
 ```
 from matplotlib import pyplot as plt
 import numpy as np
-pulse = fel_pulse('si', 'si', amplitude = 1, freq_spacing_factor = 0.02, pulse_duration = 25, bandwidth = 0.55, central_freq = 45)
+pulse = fel_pulse(pulse_duration = 25, bandwidth = 0.55, central_freq = 45)
 freq_domain = pulse.get_pos_freq_domain()
 freq_series = pulse.get_pos_freq_series()
 plt.plot(freq_domain, np.square(np.abs(freq_series)))
