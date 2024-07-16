@@ -6,9 +6,17 @@ This code uses the Partial Coherence Model (PCM) to simulate Self-Amplifed Spont
 There are 2 included python classes in this repository. The first is the `random_laser_pulse` class, which contains the PCM algorithm. The second is the `fel_pulse` class, which is a wrapper for the other class. Here, inputs are simplified and there is an option to convert between atomic units and standard units. It is recommended to use the `fel_pulse` class.
 
 ## Examples
-If you want to look at the frequency series of such a pulse, you might write something like this:
+### Generating a Pulse
+To generate a pulse, we call the fel_pulse function.
+The required inputs are pulse duration, bandwidth, and central frequency. In time the pulse is always centered around 0.
 ```
-import numpy as np
+from fel_pulse import fel_pulse
+pulse = fel_pulse(pulse_duration = 25, bandwidth = 0.55, central_freq = 45)
+```
+By default the input units are eV for frequencies and femtoseconds for time, however input and output units can also be switched to atomic units.
+### Frequency Series
+The frequency series of a pulse is the Fourier transform of its time series, meaning it is the same signal but composed of frequencies. If you want to inspect such a frequency series of a pulse, you might write something like this:
+```
 from matplotlib import pyplot as plt
 from fel_pulse import fel_pulse
 pulse = fel_pulse('si', 'si', amplitude = 1, freq_spacing_factor = 0.02, pulse_duration = 25, bandwidth = 0.55, central_freq = 45)
@@ -30,8 +38,8 @@ plt.plot(freq_domain[f_start:f_end], np.square(np.abs(freq_series))[f_start:f_en
 ![A more zoomed in version of the previous plot, now there are visible distinct spikes in the pulse](example_freq_zoomin.png)
 
 Now we can see the spikes in the pulse.
-
-If we want to see the time profile of a pulse along with its envelope, it can be done as such:
+### Time Series
+The time series of a pulse usually has very rapid oscillation inside of longer oscillations. Because of this, the time envelope is also calculated when a pulse is generated. If we want to see the time profile of a pulse along with its envelope, it can be done as such:
 ```
 time_series = pulse.get_time_series()
 time_domain = pulse.get_time_domain()
