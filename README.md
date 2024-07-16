@@ -7,7 +7,7 @@ There are 2 included python classes in this repository. The first is the `random
 
 ## Examples
 ### Generating a Pulse
-To generate a pulse, we call the fel_pulse function.
+To generate a pulse, we call the `fel_pulse` function.
 The required inputs are pulse duration, bandwidth, and central frequency. In time the pulse is always centered around 0.
 ```
 from fel_pulse import fel_pulse
@@ -28,7 +28,7 @@ Which would generate a plot similar to this:
 
 ![The plotted frequency series of generated pulse, but so zoomed out no features are visible](example_freq_zoomout.png)
 
-But here we can't see anything, so let's zoom in some.
+But here we can't see anything, so let's zoom in some. Here the fact that frequency 0 is at index 0 is used to get indeces for the frequency range we want to look at. For this the `get_freq_spacing` function is used, which returns the spacing between 2 consecutive points on the frequency axis.
 ```
 freq_spacing = pulse.get_freq_spacing()
 f_start = int(44 / freq_spacing)
