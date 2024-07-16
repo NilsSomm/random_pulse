@@ -38,7 +38,7 @@ plt.plot(freq_domain[f_start:f_end], np.square(np.abs(freq_series))[f_start:f_en
 
 Now we can see the spikes in the pulse.
 ### Time Series
-The time series of a pulse usually has very rapid oscillation inside of longer oscillations. Because of this, the time envelope is calculated when a pulse is generated. To get the time axis you use the function `get_time_axis`, and `get_time_series` for the series. Since time is centered around 0, for zooming in we base the central point at half the length of the axis.. If we want to see the time profile of a pulse along with its envelope, it can be done as such:
+The time series of a pulse usually has very rapid oscillation inside of longer oscillations. Because of this, the time envelope is calculated when a pulse is generated. To get the time axis you use the function `get_time_axis`, and `get_time_series` and `get_time_envlope` for the series and corresponding envelope. Since time is centered around 0, for zooming in we base the central point at half the length of the axis and use the function `get_time_spacing` to get the spacing between two consecutive points on the time axis. If we want to see the time profile of a pulse along with its envelope, it can be done as such:
 ```
 time_series = pulse.get_time_series()
 time_domain = pulse.get_time_domain()
