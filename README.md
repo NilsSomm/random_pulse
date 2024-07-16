@@ -15,11 +15,10 @@ pulse = fel_pulse(pulse_duration = 25, bandwidth = 0.55, central_freq = 45)
 ```
 By default the input units are eV for frequencies and femtoseconds for time, however input and output units can also be switched to atomic units.
 ### Frequency Series
-The frequency series of a pulse is the Fourier transform of its time series, meaning it is the same signal but composed of frequencies. If you want to inspect such a frequency series of a pulse, you might write something like this:
+The frequency series of a pulse is the Fourier transform of its time series, meaning it is the same signal but composed of frequencies. To get the frequency axis you use the function `get_freq_domain` or `get_pos_freq_domain`, depending on whether you want to use the complete frequency series or an adjusted one that only contains the positive ones. The corresponding functions to get the frequency series are `get_freq_series` and `get_pos_freq_series`. If you want to inspect such a frequency series of a pulse, you might write something like this:
 ```
 from matplotlib import pyplot as plt
 import numpy as np
-pulse = fel_pulse(pulse_duration = 25, bandwidth = 0.55, central_freq = 45)
 freq_domain = pulse.get_pos_freq_domain()
 freq_series = pulse.get_pos_freq_series()
 plt.plot(freq_domain, np.square(np.abs(freq_series)))
@@ -39,20 +38,21 @@ plt.plot(freq_domain[f_start:f_end], np.square(np.abs(freq_series))[f_start:f_en
 
 Now we can see the spikes in the pulse.
 ### Time Series
-The time series of a pulse usually has very rapid oscillation inside of longer oscillations. Because of this, the time envelope is also calculated when a pulse is generated. If we want to see the time profile of a pulse along with its envelope, it can be done as such:
+The time series of a pulse usually has very rapid oscillation inside of longer oscillations. Because of this, the time envelope is calculated when a pulse is generated. To get the time axis you use the function `get_time_axis`, and `get_time_series` for the series. Since time is centered around 0, for zooming in we base the central point at half the length of the axis.. If we want to see the time profile of a pulse along with its envelope, it can be done as such:
 ```
 time_series = pulse.get_time_series()
 time_domain = pulse.get_time_domain()
 time_envelope = pulse.get_time_envelope()
 time_spacing = pulse.get_time_spacing()
 domain_len = len(time_domain)
-t_start = int((domain_len/2) - (50 / time_spacing))
-t_end = int((domain_len/2) + (50 / time_spacing))
+zoom_range = 50
+t_start = int((domain_len/2) - (zoom_range / time_spacing))
+t_end = int((domain_len/2) + (zoom_range / time_spacing))
 plt.plot(time_domain[t_start:t_end], time_series[t_start:t_end])
 plt.plot(time_domain[t_start:t_end], time_envelope[t_start:t_end])
 ```
 ![The plotted time series of generated pulse with a line for the envelope plotted as well](example_time_zoomout.png)
 
-In blue is the time signal, and in orange is the envelope. If we again zoom in on this we can see the oscillations of the time signal inside the envelope.
+In blue is the time signal, and in orange is the envelope. If we again zoom by lowering the variable `zoom_range` to 0.5 we can see the oscillations of the time signal inside the envelope.
 
 ![A more zoomed in version of the previous plot, now there are visible distinct oscillations in the pulse](example_time_zoomin.png)
