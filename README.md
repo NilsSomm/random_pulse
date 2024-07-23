@@ -1,21 +1,21 @@
 # random_pulse 
 ## Introduction
-This code uses the Partial Coherence Model (PCM) to simulate Self-Amplifed Spontaneous Emmission (SASE) Free-Electron Laser (FEL) pulses. These types of pulses form from random noise, so this is a stochastic process. The PCM method phenomenologically models stochastic SASE-FEL pulses from random number generation to model this. The PCM algorithm is described [T. Pfeifer et al., Optics Letters 35, 3441, (2010)](https://doi.org/10.1364/OL.35.003441).
+This code uses the Partial Coherence Model (PCM) to simulate Self-Amplifed Spontaneous Emmission (SASE) Free-Electron Laser (FEL) pulses. SASE-FEL pulses are generated from random noise, so this is a stochastic process. The PCM method phenomenologically models stochastic SASE-FEL pulses from random number generation. The PCM algorithm is described in [T. Pfeifer et al., Optics Letters 35, 3441, (2010)](https://doi.org/10.1364/OL.35.003441).
 
 ## Overview
-There are 2 included python classes in this repository. The first is the `random_laser_pulse` class, which contains the PCM algorithm. The second is the `fel_pulse` class, which is a wrapper for the other class. Here, inputs are simplified and there is an option to convert between atomic units and standard units. It is recommended to use the `fel_pulse` class.
+There are 2 included python classes in this repository. The first class is `random_laser_pulse` and contains the PCM algorithm. The second class is `fel_pulse` class, which is a wrapper for the other class and provide support for unit conversion between between atomic units and SI units. We recommended using the `fel_pulse` class to generate SASE FEL pulses.
 
 ## Examples
 ### Generating a Pulse
 To generate a pulse, we call the `fel_pulse` function.
-The required inputs are pulse duration, bandwidth, and central frequency. In time the pulse is always centered around 0.
+The required inputs are the pulse duration, bandwidth, and central frequency. In time the pulse is always centered around 0.
 ```
 from fel_pulse import fel_pulse
 pulse = fel_pulse(pulse_duration = 25, bandwidth = 0.55, central_freq = 45)
 ```
 By default the input units are eV for frequencies and femtoseconds for time, however input and output units can also be switched to atomic units.
 ### Frequency Series
-The frequency series of a pulse is the Fourier transform of its time series, meaning it is the same signal but composed of frequencies. To get the frequency axis you use the function `get_freq_domain` or `get_pos_freq_domain`, depending on whether you want to use the complete frequency series or an adjusted one that only contains the positive ones. The corresponding functions to get the frequency series are `get_freq_series` and `get_pos_freq_series`. If you want to inspect such a frequency series of a pulse, you might write something like this:
+The frequency series provides the spectral information of a pulse, correspoding to the Fourier transform of its time series. To get the frequency axis you use the function `get_freq_domain` or `get_pos_freq_domain`, depending on whether you want to use the complete frequency series or an adjusted one that only contains the positive frequencies. The corresponding functions to get the frequency series are `get_freq_series` and `get_pos_freq_series`. For example, to plot the frequency series of a pulse, you might write something like this:
 ```
 from matplotlib import pyplot as plt
 import numpy as np
@@ -38,7 +38,7 @@ plt.plot(freq_domain[f_start:f_end], np.square(np.abs(freq_series))[f_start:f_en
 
 Now we can see the spikes in the pulse.
 ### Time Series
-The time series of a pulse usually has very rapid oscillation inside of longer oscillations. Because of this, the time envelope is calculated when a pulse is generated. To get the time axis you use the function `get_time_axis`, and `get_time_series` and `get_time_envlope` for the series and corresponding envelope. Since time is centered around 0, for zooming in we base the central point at half the length of the axis and use the function `get_time_spacing` to get the spacing between two consecutive points on the time axis. If we want to see the time profile of a pulse along with its envelope, it can be done as such:
+The time series of a pulse usually has very rapid oscillation modulated by a slower-varying envelope. In our code, the time envelope is calculated and stored in the `get_time_envlope` variable. For example, to get the time axis you use the function `get_time_axis`, and `get_time_series` and `get_time_envlope` for the series and corresponding envelope. Since time is centered around 0, for zooming in we base the central point at half the length of the axis and use the function `get_time_spacing` to get the spacing between two consecutive points on the time axis. If we want to see the time profile of a pulse along with its envelope, it can be done as such:
 ```
 time_series = pulse.get_time_series()
 time_domain = pulse.get_time_domain()
