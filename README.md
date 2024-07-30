@@ -1,4 +1,8 @@
 # random_pulse 
+<!-- ![Version](https://img.shields.io/badge/version-v1.00.000-blue) -->
+<!-- [![python](https://img.shields.io/badge/Python-3.9-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org) -->
+[![License](https://img.shields.io/badge/license-BSD-lightgray)](https://github.com/fmauger1/QMol-grid/blob/main/LICENSE)
+
 ## Introduction
 This code uses the Partial Coherence Model (PCM) to simulate Self-Amplifed Spontaneous Emmission (SASE) Free-Electron Laser (FEL) pulses. SASE-FEL pulses are generated from random noise, so this is a stochastic process. The PCM method phenomenologically models stochastic SASE-FEL pulses from random number generation. The PCM algorithm is described in [T. Pfeifer et al., Optics Letters 35, 3441, (2010)](https://doi.org/10.1364/OL.35.003441).
 
