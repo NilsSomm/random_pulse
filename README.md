@@ -60,3 +60,6 @@ plt.plot(time_domain[t_start:t_end], time_envelope[t_start:t_end])
 In blue is the time signal, and in orange is the envelope. If we again zoom by lowering the variable `zoom_range` to 0.5 we can see the oscillations of the time signal inside the envelope.
 
 ![A more zoomed in version of the previous plot, now there are visible distinct oscillations in the pulse](example_time_zoomin.png)
+
+## Acknowledgments
+This material is based upon work supported by the National Science Foundation under Grant No. PHY-2207656.
